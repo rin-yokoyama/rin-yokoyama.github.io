@@ -1,0 +1,11 @@
+User-agent: Googlebot-Image
+Disallow: /
+User-agent:
+Disallow: /Profile/
+Disallow: /photo_gallery/
+Disallow: /contact/
+Disallow: /weisskopf/
+Disallow: /weighted_mean/
+Disallow: /*?
+
+Sitemap: http://rin-memo.appspot.com/sitemap.xml

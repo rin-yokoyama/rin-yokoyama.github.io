@@ -1,0 +1,33 @@
+'''
+Created on 2016/10/13
+
+@author: Rin
+'''
+print "Content-type: text/html\n\n"
+
+import cgitb; cgitb.enable()
+import cgi
+import sys
+import math
+
+form = cgi.FieldStorage()
+result = 'error'
+try:
+    sort_type = str(form.getvalue('s','error'))
+    order_type = float(form.getvalue('o','error'))
+    first_author = float(form.getvalue('f','false'))
+except:
+    result = 'error'
+    print '<p>invalid input</p>'
+    sys.exit()
+        
+if energy < 1 or energy > 10000 :
+    result = 'input energy must be in the range: 1 to 10E+4'
+elif mass < 1 or mass > 300:
+    result = 'input mass must be in the range: 1 to 300'
+else:
+    result = str(WeisskopfFunc(energy,mass,transition)) + ' (s)'
+
+print '<p>transition:' + transition + ','
+print ' energy:' + str(energy) + '(keV), mass:' + str(int(mass)) + '</p>'
+print '<p>Weisskopf half-life: ' + result + '</p>'

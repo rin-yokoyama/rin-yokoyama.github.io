@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<!-- #BeginTemplate "../../master.dwt" -->
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- #BeginEditable "doctitle" -->
+<title>ROOT/Signal/Slot communication -Rin memo-</title>
+<!-- #EndEditable -->
+<meta name="description" content="CNS横山個人ページ。研究関連の忘備録">
+<meta name="viewport" content="width=device-width">
+<link href="../../styles/style1.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://www.cns.s.u-tokyo.ac.jp/~yokoyama/favicon.ico">
+<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<!-- Begin Container -->
+<div id="container">
+
+	<header>
+	<!-- Begin Masthead -->
+	<div id="masthead">
+		<hgroup>
+		<h1>Rin-memo</h1>
+		<h2>Personal Web Site of Rin Yokoyama</h2>
+		</hgroup>
+	</div>
+	<!-- End Masthead -->
+	<!-- Begin Navigation -->
+	<div id="navigation">
+		<nav>
+		<ul>
+			<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Profile/profile.html">Profile</a></li>
+			<li><a href="../memo.html">Memo</a></li>
+			<li><a href="../../Research/Research.html">Research</a></li>
+			<li><a href="../../Osaka/Osaka.html">Osaka</a></li>
+			<li><a href="../../Downloads/downloads.html">Downloads</a></li>
+			<li><a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a></li>
+			<li><a href="../../links/links.html">Links</a></li>
+			<li><a href="../../contact/contact.html">Contact</a></li>
+			<li><a href="../../Tools/tools.html">Tools</a></li>
+		</ul>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		</nav>
+	</div>
+	<!-- End Navigation -->
+	</header>
+	
+	<article>
+	<!-- Begin Content -->
+	<div id="content">
+		<!-- #BeginEditable "content" -->
+		<h2>ROOT/Signal/Slot communication</h2>
+		<p class="style_center"><a href="../ROOT.html">Memo-ROOTへ戻る</a></p>
+		<p>あるクラスオブジェクトの状態が変化したときにシグナルが発生し、それを受けた時に他のオブジェクトがルーチンを実行する、ということができます。</p>
+		<h3>シグナルの発生</h3>
+		<p>シグナルを発生させるには、RQ_OBJECT.h を include した上で、次のサンプルのようにします。</p>
+		<pre><code>
+    class A {
+       RQ_OBJECT("A")
+    private:
+        Int_t  fValue;
+    public:
+        A() { fValue = 0; }
+        Int_t  GetValue() const { return fValue; }
+        void   SetValue(Int_t);      //*SIGNAL*
+    };
+    
+    void A::SetValue(Int_t v){
+    	fValue = v;
+    	Emit("SignalName(Int_t)", v);
+    }
+    	</code></pre>
+		<p>まず、クラスを定義する際に、RQ_OBJECT(&quot;ClassName&quot;) という1行を追加します。そして、シグナルを発生させ<code>たいところで Emit("SignalName(Int_t)", 
+		arg) を呼び出します。</code>SignalName には好きなシグナルの名前、(Int_t) の部分には引数（なんでもよい）を、arg には実際に引き渡す argument を指定します。</p>
+		<p>TCanvas には元からマウス入力やキーボード入力に対して発生する、"ProcessedEvent(Int_t event, Int_t x, Int_t y, TObject* selected)" というシグナルが用意されています。</p>
+		<h3>Slot (シグナルの受け取り部)</h3>
+		<p>クラス内にシグナルを受け取るための Slot として必要なのは、シグナルを受けたときに実行する関数だけです。ただし、引数にはシグナルと同じものを用意してください。</p>
+		<h3>Connection</h3>
+		<p>シグナルと Slot を結び付けるには、シグナル発生側のオブジェクトに対して、Connect() 関数を呼び出します。使い方は、次の通りです。</p>
+		<pre><code>SenderObj->Connect("Signal(Int_t)", "SenderClass", RecieverObj, "Slot(Int_t)");</code></pre>
+		<p>ここで、SenderObj はシグナル発生側のオブジェクト、"Signal(Int_t)" はシグナル名とその引数、SenderClass は RQ_OBJECT() で定義したシグナル発生クラス名、RecieverObj はシグナル受け取り側のオブジェクトポインタ、"Slot(Int_t)" はシグナルを受けて実行される関数名(Slot)です。</p>
+		<p>Connection を切るには、Disconnect()関数を呼び出します。</p>
+		<pre><code>SenderObj->Disconnect("Signal(Int_t)", RecieverObj, "Slot(Int_t)");</code></pre>
+		<p>Signal, RecieverObj, Slot を特に指定しないと SenderObj とつながった全ての Connection が切られます。</p>
+		<p class="style_center"><a href="../ROOT.html">Memo-ROOTへ戻る</a></p>
+		<!-- #EndEditable "content" -->
+	</div>
+	<!-- End Content -->
+	</article>
+	
+	<footer>
+	<!-- Begin Footer -->
+	<div id="footer">		
+		<p><a href="../../index.html">Home</a> | 
+		<a href="../../Profile/profile.html">Profile</a> 
+		| <a href="../memo.html">Memo</a> | 
+		<a href="../../Research/Research.html">Research</a> | 
+		<a href="../../Osaka/Osaka.html">
+		Osaka</a> | <a href="../../Downloads/downloads.html">Downloads</a> | 
+		<a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a> |
+		<a href="../../links/links.html">Links</a> | 
+		<a href="../../contact/contact.html">Contact</a></p>
+		<p></p>
+	</div>
+	<!-- End Footer -->
+	</footer>
+	
+	</div>
+<!-- End Container -->
+
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  		ga('create', 'UA-46995449-1', 'rin-memo.appspot.com');
+  		ga('send', 'pageview');
+
+	</script>	
+</body>
+
+<!-- #EndTemplate -->
+
+</html>

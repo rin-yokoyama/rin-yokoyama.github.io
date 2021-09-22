@@ -1,0 +1,30 @@
+#application: rin-memo
+#version: 1
+runtime: python27
+api_version: 1
+threadsafe: false
+
+handlers:
+- url: /weisskopf/.*
+  script: cgi_bin/weisskopf/weisskopf.py
+  
+- url: /weighted_mean/.*
+  script: cgi_bin/weighted_mean/weighted_mean.py
+  
+- url: /neutron_energy/.*
+  script: cgi_bin/neutron_energy/neutron_energy.py
+  
+- url: /publications/.*
+  script: cgi_bin/publications/publications.py
+
+- url: /Tools/(.*\.shtml)
+  mime_type: text/html
+  static_files: html/Tools/\1
+  upload: html/Tools/(.*\.shtml)
+  
+- url: /
+  static_files: html/index.html
+  upload: /
+
+- url: /
+  static_dir: html
