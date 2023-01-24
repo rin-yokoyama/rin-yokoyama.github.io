@@ -98,7 +98,6 @@
 		<h2>Tools -Weisskopf-</h2>
 		<p>Calculation of Weisskopf single-particle transition half-life, 
 		corrected for internal conversion.</p>
-		<p><b>Temporally unavailable</b></p>
 		<p class="style_center"><a href="tools.html">Toolsへ戻る</a></p>
 		
 		<script type="text/javascript" src="xmlhttprequest_weiss.js"></script>
