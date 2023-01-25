@@ -97,7 +97,6 @@
 		<!-- #BeginEditable "content" -->
 		<h2>Tools -weighted mean-</h2>
 		<p>Calculation of weighted mean value and its error</p>
-		<p><b>Temporally unavailable</b></p>
 		<p class="style_center"><a href="tools.html">Toolsへ戻る</a></p>
 		
 		<script type="text/javascript" src="xmlhttprequest_wmean.js"></script>
@@ -110,7 +109,7 @@
         	    data[n] error[n]<br/>
         		(The errors should be given in sigma)<br/>
             <textarea name="data_input" style="width:300px;height:200px"></textarea></p>
-            <p><input value="Calculate" type="button" onclick='JavaScript:xmlhttpPost("http://rin-memo.appspot.com/weighted_mean/")'/></p>
+            <p><input value="Calculate" type="button" onclick='JavaScript:xmlhttpPost("https://hvgw2bhr6hilemj7bladtgi3bq0lzosr.lambda-url.ap-northeast-1.on.aws/")'/></p>
             <div id="result"></div>
         </form>
 		<p class="style2"><a href="tools.html">Tools top へ戻る</a></p>
