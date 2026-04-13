@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<!-- #BeginTemplate "../../master.dwt" -->
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- #BeginEditable "doctitle" -->
+<title>VC++でGEANT4を使う -Rin memo-</title>
+<style type="text/css">
+
+
+
+
+
+
+
+
+
+
+
+.style1 {
+	text-align: center;
+}
+</style>
+<!-- #EndEditable -->
+<meta name="description" content="CNS横山個人ページ。研究関連の忘備録">
+<meta name="viewport" content="width=device-width">
+<link href="../../styles/style1.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://www.cns.s.u-tokyo.ac.jp/~yokoyama/favicon.ico">
+<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<!-- Begin Container -->
+<div id="container">
+
+	<header>
+	<!-- Begin Masthead -->
+	<div id="masthead">
+		<hgroup>
+		<h1>Rin-memo</h1>
+		<h2>Personal Web Site of Rin Yokoyama</h2>
+		</hgroup>
+	</div>
+	<!-- End Masthead -->
+	<!-- Begin Navigation -->
+	<div id="navigation">
+		<nav>
+		<ul>
+			<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Profile/profile.html">Profile</a></li>
+			<li><a href="../memo.html">Memo</a></li>
+			<li><a href="../../Research/Research.html">Research</a></li>
+			<li><a href="../../Osaka/Osaka.html">Osaka</a></li>
+			<li><a href="../../Downloads/downloads.html">Downloads</a></li>
+			<li><a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a></li>
+			<li><a href="../../links/links.html">Links</a></li>
+			<li><a href="../../contact/contact.html">Contact</a></li>
+			<li><a href="../../Tools/tools.html">Tools</a></li>
+		</ul>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		</nav>
+	</div>
+	<!-- End Navigation -->
+	</header>
+	
+	<article>
+	<!-- Begin Content -->
+	<div id="content">
+		<!-- #BeginEditable "content" -->
+		<h2>VC++でGEANT4を使う</h2>
+		<p class="style_center"><a href="../windows.html">Memo-Windowsへ戻る</a></p>
+		<p>前<a href="VSG4_1.html">VC++でGEANT4のビルド</a>ができた上で、実際に使う際に必要な手順を説明。</p>
+		<h3>手順</h3>
+		<ul>
+		<li>File→New→ProjectからWin32 Console Applicationを選択。</li>
+		<li>Project名を入力し"OK"する。</li>
+		<li>Win32 Application Wizardが起動したら、"Next＞"を押す。</li>
+		<li>Application type: "console Application", Additional Options: "Empty project"をチェックし、"Finish"。</li>
+		<li>Solution Expolorから、作成したprojectを選択、右クリックして"Properties"。</li>
+		<li>以下の通り設定する。
+			<ul>
+				<li>C/C++ → General
+					<ul>
+						<li>Debug Information Format: <span class="style_bold">Program Database(/Zi)</span></li>
+						<li>Treat Warnings As Errors: <span class="style_bold">No(/WX-)</span></li>
+						<li>Additional Input Directories: <span class="style_bold">$(G4_HEADERS);$(CLHEP_INCLUDE)</span>　G4のヘッダーファイルをまとめたフォルダとCLHEPのincludeフォルダの場所</li>
+					</ul>
+				</li>
+				<li>C/C++ → Preprocessor
+					<ul>
+						<li>Preprocessor Definitions: <span class="style_bold">_CONSOLE; _WIN32; OS; G4OPTIMISE; WIN32; XPNET; _CRT_SECURE_NO_DEPRECATE; G4VERBOSE;G4_STORE_TRAJECTORY; G4UI_USE_TERMINAL;G4UI_USE;G4VIS_USE_ASCIITREE; G4VIS_USE_DAWNFILE;G4VIS_USE_GMOCRENFILE; G4VIS_USE_HEPREPFILE;G4VIS_USE_RAYTRACER; G4VIS_USE_VRMLFILE; G4VIS_USE; %(PreprocessorDefinitions)</span></li>
+					</ul>
+				</li>
+				<li>C/C++ → Code Generation
+					<ul>
+						<li>Basic Runtime Checks: <span class="style_bold">Default</span></li>
+						<li>Runtime Library: <span class="style_bold">Multi-threaded DLL(/MD)</span></li>
+					</ul>
+				</li>
+				<li>C/C++ → Language
+					<ul>
+						<li>Enable RunTime Type Information: <span class="style_bold">Yes(/GR)</span></li>
+					</ul>
+				</li>
+				<li>C/C++ → Command Line
+					<ul>
+						<li>Additional Options: <span class="style_bold">-Ox -Zm200</span></li>
+					</ul>
+				</li>
+				<li>Linker → General
+					<ul>
+						<li>Enable Incremental Linking: <span class="style_bold">Yes(/INCREMENTAL)</span></li>
+						<li>Additional Library Directories: <span class="style_bold">$(G4_LIB);$(CLHEP_LIB)</span>　（コンパイルしたG4～.libファイルの場所とCLHEP.libの場所）</li>
+					</ul>
+				</li>
+				<li>Linker → Input
+					<ul>
+						<li>Additional Dependencies: <span class="style_Italy">必要なG4～.libとCLHEP.libを入力し、Inherit 
+						from parent or project defaults のチェックを外す。</span></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>後はProject → Add New Item... / Add Existing Item...でexamplesのソースソースファイルをプロジェクトに追加してビルドしてみるなどしてください。</li>
+		</ul>
+		<p class="style_center"><a href="../windows.html">Memo-Windowsへ戻る</a></p>
+		<!-- #EndEditable "content" -->
+		<p>
+		<script type="text/javascript">
+    	var url = encodeURIComponent(location.href);
+    	document.write('<iframe src="https://www.facebook.com/plugins/like.php?href=' + url + '&width=104&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId" width="104" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>');
+    	</script>
+    	<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	    </p>
+	</div>
+	<!-- End Content -->
+	</article>
+	
+	<footer>
+	<!-- Begin Footer -->
+	<div id="footer">		
+		<p><a href="../../index.html">Home</a> | 
+		<a href="../../Profile/profile.html">Profile</a> 
+		| <a href="../memo.html">Memo</a> | 
+		<a href="../../Research/Research.html">Research</a> | 
+		<a href="../../Osaka/Osaka.html">
+		Osaka</a> | <a href="../../Downloads/downloads.html">Downloads</a> | 
+		<a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a> |
+		<a href="../../links/links.html">Links</a> | 
+		<a href="../../contact/contact.html">Contact</a></p>
+		<p></p>
+	</div>
+	<!-- End Footer -->
+	</footer>
+	
+	</div>
+<!-- End Container -->
+
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  		ga('create', 'UA-46995449-1', 'rin-memo.appspot.com');
+  		ga('send', 'pageview');
+
+	</script>	
+</body>
+
+<!-- #EndTemplate -->
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<!-- #BeginTemplate "../../master.dwt" -->
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- #BeginEditable "doctitle" -->
+<title>リモート解析環境/Webブラウザのプロキシ設定 -Rin memo-</title>
+<!-- #EndEditable -->
+<meta name="description" content="CNS横山個人ページ。研究関連の忘備録">
+<meta name="viewport" content="width=device-width">
+<link href="../../styles/style1.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://www.cns.s.u-tokyo.ac.jp/~yokoyama/favicon.ico">
+<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<!-- Begin Container -->
+<div id="container">
+
+	<header>
+	<!-- Begin Masthead -->
+	<div id="masthead">
+		<hgroup>
+		<h1>Rin-memo</h1>
+		<h2>Personal Web Site of Rin Yokoyama</h2>
+		</hgroup>
+	</div>
+	<!-- End Masthead -->
+	<!-- Begin Navigation -->
+	<div id="navigation">
+		<nav>
+		<ul>
+			<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Profile/profile.html">Profile</a></li>
+			<li><a href="../memo.html">Memo</a></li>
+			<li><a href="../../Research/Research.html">Research</a></li>
+			<li><a href="../../Osaka/Osaka.html">Osaka</a></li>
+			<li><a href="../../Downloads/downloads.html">Downloads</a></li>
+			<li><a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a></li>
+			<li><a href="../../links/links.html">Links</a></li>
+			<li><a href="../../contact/contact.html">Contact</a></li>
+			<li><a href="../../Tools/tools.html">Tools</a></li>
+		</ul>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		</nav>
+	</div>
+	<!-- End Navigation -->
+	</header>
+	
+	<article>
+	<!-- Begin Content -->
+	<div id="content">
+		<!-- #BeginEditable "content" -->
+		<h2>リモート解析環境/Webブラウザのプロキシ設定</h2>
+		<p class="style_center"><a href="../RemoteAna.html">Memo-リモート解析環境へ戻る</a></p>
+		<p>自動構成スクリプトを書いてWebブラウザの設定をすると、一々手動でプロキシ設定を切り替えなくても自動で切り替えてくれるようにできる。</p>
+		<h3>自動構成スクリプト</h3>
+		<p>以下の例のようなスクリプトを書いて.pac ファイルとして保存し、これを後述の方法でブラウザから指定する。
+		これにより、自分の接続しているネットワークや見たいサイトのドメインなどの条件によってプロキシの設定を自動で変更するようにできる。</p>
+		<pre><code>
+function FindProxyForURL(url, host)
+{
+    // 研究室にいるときの設定
+    //　自分のIPが192.168.**.**だったら全てダイレクトで接続
+    if(myIpAddress().substr(0,8) == "192.168."){
+        return &quot;DIRECT&quot;;
+    }
+
+    // その他にいるときの設定
+    // 研究室のローカルネットワーク内のホストへはゲートウェイサーバーを経由
+    if(dnsDomainIs(host,"[server name1]"))
+            return "SOCKS localhost:1080";
+    if(dnsDomainIs(host,"[server name2]"))
+            return "SOCKS localhost:1080";
+    //論文系のサイトも研究室のサーバー経由
+    if(dnsDomainIs(host,".aip.org"))
+            return "SOCKS localhost:1080";
+    if(dnsDomainIs(host,".aps.org"))
+            return "SOCKS localhost:1080";
+    if(dnsDomainIs(host,".iop.org"))
+            return "SOCKS localhost:1080";
+    if(dnsDomainIs(host,".ieee.org"))
+            return "SOCKS localhost:1080";
+    if(dnsDomainIs(host,".sciencedirect.com"))
+            return "SOCKS localhost:1080";
+    if(dnsDomainIs(host,".springerlink.com"))
+            return "SOCKS localhost:1080";
+    //それ以外はダイレクト
+        return "DIRECT";
+}		
+		</code></pre>
+		<h3>Webブラウザの設定</h3>
+		<h4>IE9の場合</h4>
+		<p>[右上の歯車ボタン]→[インターネットオプション]→[接続]タブ→[LANの設定]→[自動構成スクリプトを使用する]にチェック</p>
+		<h4>FireFoxの場合</h4>
+		<p>[ツール]あるいは[左上のFireFox]→[オプション]→[詳細]タブ→[ネットワーク]タブ→[接続設定]→[自動プロキシ設定スクリプト]にチェック</p>
+		<h4>Chromeの場合</h4>
+		<p>CHrome はコンピューターのプロキシ設定を使っているみたいなので、インターネットオプションを変更すればよい。</p>
+		<h4>Safariの場合</h4>
+		<p>[右上の歯車ボタン]→[設定]→[詳細]タブ→プロキシ：[設定を変更]</p>
+		<p>いずれの場合もアドレス入力欄に、file://C:/[file path].pac の形で自動構成スクリプトを指定する。</p>
+		<p><span class="style_emph">Windows の場合、[インターネットオプション]→[セキュリティ]タブ→[ローカルイントラネット]→[サイト]→[プロキシサーバーを利用しないサイトを全て含める]のチェックを外す。</span><br/>
+		そうしないと、return "DIRECT"; したサイトが全てローカルネットワークと同じセキュリティ設定として扱われてしまうらしい。
+		これは、そもそも「ローカルネットワークにしかつながっていないPCから外部のサイトを見るときにゲートウェイサーバーを経由する」という状況で使われることを想定しているからのようです。</p>
+		<p class="style_center"><a href="../RemoteAna.html">Memo-リモート解析環境へ戻る</a></p>
+		<!-- #EndEditable "content" -->
+	</div>
+	<!-- End Content -->
+	</article>
+	
+	<footer>
+	<!-- Begin Footer -->
+	<div id="footer">		
+		<p><a href="../../index.html">Home</a> | 
+		<a href="../../Profile/profile.html">Profile</a> 
+		| <a href="../memo.html">Memo</a> | 
+		<a href="../../Research/Research.html">Research</a> | 
+		<a href="../../Osaka/Osaka.html">
+		Osaka</a> | <a href="../../Downloads/downloads.html">Downloads</a> | 
+		<a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a> |
+		<a href="../../links/links.html">Links</a> | 
+		<a href="../../contact/contact.html">Contact</a></p>
+		<p></p>
+	</div>
+	<!-- End Footer -->
+	</footer>
+	
+	</div>
+<!-- End Container -->
+
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  		ga('create', 'UA-46995449-1', 'rin-memo.appspot.com');
+  		ga('send', 'pageview');
+
+	</script>	
+</body>
+
+<!-- #EndTemplate -->
+
+</html>

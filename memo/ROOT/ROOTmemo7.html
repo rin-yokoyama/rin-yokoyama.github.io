@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<!-- #BeginTemplate "../../master.dwt" -->
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- #BeginEditable "doctitle" -->
+<title>ROOT/Canvas 上のマウス・キーボード入力 -Rin memo-</title>
+<!-- #EndEditable -->
+<meta name="description" content="CNS横山個人ページ。研究関連の忘備録">
+<meta name="viewport" content="width=device-width">
+<link href="../../styles/style1.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://www.cns.s.u-tokyo.ac.jp/~yokoyama/favicon.ico">
+<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<!-- Begin Container -->
+<div id="container">
+
+	<header>
+	<!-- Begin Masthead -->
+	<div id="masthead">
+		<hgroup>
+		<h1>Rin-memo</h1>
+		<h2>Personal Web Site of Rin Yokoyama</h2>
+		</hgroup>
+	</div>
+	<!-- End Masthead -->
+	<!-- Begin Navigation -->
+	<div id="navigation">
+		<nav>
+		<ul>
+			<li><a href="../../index.html">Home</a></li>
+			<li><a href="../../Profile/profile.html">Profile</a></li>
+			<li><a href="../memo.html">Memo</a></li>
+			<li><a href="../../Research/Research.html">Research</a></li>
+			<li><a href="../../Osaka/Osaka.html">Osaka</a></li>
+			<li><a href="../../Downloads/downloads.html">Downloads</a></li>
+			<li><a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a></li>
+			<li><a href="../../links/links.html">Links</a></li>
+			<li><a href="../../contact/contact.html">Contact</a></li>
+			<li><a href="../../Tools/tools.html">Tools</a></li>
+		</ul>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		</nav>
+	</div>
+	<!-- End Navigation -->
+	</header>
+	
+	<article>
+	<!-- Begin Content -->
+	<div id="content">
+		<!-- #BeginEditable "content" -->
+		<h2>ROOT/Canvas 上のマウス・キーボード入力</h2>
+		<p class="style_center"><a href="../ROOT.html">Memo-ROOTへ戻る</a></p>
+		<p>TCanvas オブジェクト上でのマウスクリックや、キー入力に反応してルーチンを実行させたい。</p>
+		<h3>ProcessedEvent() signal</h3>
+		<p>TCanvas クラスには、マウス入力やキーボード入力に応じて発生する、<br/>ProcessedEvent(Int_t,Int_t,Int_t,TObject*)　というシグナルが用意されています。</p>
+		<p>よって、(Int_t,Int_t,Int_t,TObject*) という引数を持った関数を用意して、TCanvas オブジェクトの 
+		ProcessedEvent と Connect することで、Canvas 上で入力があるとその関数が呼び出されるようになります。</p>
+		<p>一つ目の引数 Int_t event は、イベントの種類を表していて、kButton1Down (クリック)、kButton1Double 
+		(ダブルクリック)、kButton3Down (右クリック)、kWheelDown (マウスホイールダウン)、kWheelUp 
+		(マウスホイールアップ)、kButton1Shift (Shift + クリック)、kKeyPress (キー入力) などが定義されています。</p>
+		<p>2つ目、3つ目の引数は、マウスカーソルの位置px, pyを表しています。ただし、これは Canvas 上の pixel 
+		数になっているので、X軸、Y軸の値が欲しい時は注意が必要です。Float_t TPad::AbsPixeltoX(Int_t) 
+		を使うなどする必要があります。</p>
+		<p>event が kKeyPress の場合は、px、py にはキーを表す番号が入ります。</p>
+		<span class="style_center"><table>
+		<caption>kKeyPress イベントの px, py 表</caption>
+		<thead><tr><td>Key</td><td>px</td><td>py</td></tr></thead>
+		<tbody>
+			<tr><td>A(Capital)</td><td>65</td><td>65</td></tr>
+			<tr><td>Z(Capital)</td><td>90</td><td>90</td></tr>
+			<tr><td>a(Small)</td><td>97</td><td>97</td></tr>
+			<tr><td>z(Small)</td><td>122</td><td>122</td></tr>
+			<tr><td>0</td><td>48</td><td>48</td></tr>
+			<tr><td>9</td><td>57</td><td>57</td></tr>
+			<tr><td>space</td><td>32</td><td>32</td></tr>
+			<tr><td>Ctr + a</td><td>1</td><td>65</td></tr>
+			<tr><td>Ctr + z</td><td>26</td><td>90</td></tr>
+			<tr><td>enter</td><td>13</td><td>4100</td></tr>
+			<tr><td>shift</td><td>0</td><td>4128</td></tr>
+			<tr><td>ctr</td><td>0</td><td>4129</td></tr>
+			<tr><td>tab</td><td>0</td><td>4097</td></tr>
+			<tr><td>←</td><td>0</td><td>4114</td></tr>
+			<tr><td>↑</td><td>0</td><td>4115</td></tr>
+			<tr><td>→</td><td>0</td><td>4116</td></tr>
+			<tr><td>↓</td><td>0</td><td>4117</td></tr>
+		</tbody>
+		</table></span>
+		<p>&nbsp;</p>
+		<p class="style_center"><a href="../ROOT.html">Memo-ROOTへ戻る</a></p>
+		<!-- #EndEditable "content" -->
+	</div>
+	<!-- End Content -->
+	</article>
+	
+	<footer>
+	<!-- Begin Footer -->
+	<div id="footer">		
+		<p><a href="../../index.html">Home</a> | 
+		<a href="../../Profile/profile.html">Profile</a> 
+		| <a href="../memo.html">Memo</a> | 
+		<a href="../../Research/Research.html">Research</a> | 
+		<a href="../../Osaka/Osaka.html">
+		Osaka</a> | <a href="../../Downloads/downloads.html">Downloads</a> | 
+		<a href="../../photo_gallery/Photo_gallery.html">Photo Gallery</a> |
+		<a href="../../links/links.html">Links</a> | 
+		<a href="../../contact/contact.html">Contact</a></p>
+		<p></p>
+	</div>
+	<!-- End Footer -->
+	</footer>
+	
+	</div>
+<!-- End Container -->
+
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  		ga('create', 'UA-46995449-1', 'rin-memo.appspot.com');
+  		ga('send', 'pageview');
+
+	</script>	
+</body>
+
+<!-- #EndTemplate -->
+
+</html>

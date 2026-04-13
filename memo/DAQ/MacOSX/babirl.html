@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<!-- #BeginTemplate "../../../master.dwt" -->
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- #BeginEditable "doctitle" -->
+<title>DAQ/Mac OS Xでデータを取る/babirlのコンパイル -Rin memo-</title>
+<!-- #EndEditable -->
+<meta name="description" content="CNS横山個人ページ。研究関連の忘備録">
+<meta name="viewport" content="width=device-width">
+<link href="../../../styles/style1.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://www.cns.s.u-tokyo.ac.jp/~yokoyama/favicon.ico">
+<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<!-- Begin Container -->
+<div id="container">
+
+	<header>
+	<!-- Begin Masthead -->
+	<div id="masthead">
+		<hgroup>
+		<h1>Rin-memo</h1>
+		<h2>Personal Web Site of Rin Yokoyama</h2>
+		</hgroup>
+	</div>
+	<!-- End Masthead -->
+	<!-- Begin Navigation -->
+	<div id="navigation">
+		<nav>
+		<ul>
+			<li><a href="../../../index.html">Home</a></li>
+			<li><a href="../../../Profile/profile.html">Profile</a></li>
+			<li><a href="../../memo.html">Memo</a></li>
+			<li><a href="../../../Research/Research.html">Research</a></li>
+			<li><a href="../../../Osaka/Osaka.html">Osaka</a></li>
+			<li><a href="../../../Downloads/downloads.html">Downloads</a></li>
+			<li><a href="../../../photo_gallery/Photo_gallery.html">Photo Gallery</a></li>
+			<li><a href="../../../links/links.html">Links</a></li>
+			<li><a href="../../../contact/contact.html">Contact</a></li>
+			<li><a href="../../../Tools/tools.html">Tools</a></li>
+		</ul>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		</nav>
+	</div>
+	<!-- End Navigation -->
+	</header>
+	
+	<article>
+	<!-- Begin Content -->
+	<div id="content">
+		<!-- #BeginEditable "content" -->
+		<h2>DAQ/Mac OS Xでデータを取る/babirlのコンパイル</h2>
+		<p class="style_center"><a href="../../memo.html">Memo</a>-<a href="../../DAQ.html">DAQ</a>-<a href="../DAQmemo4.html">Mac OS Xでデータを取る</a>へ戻る</p>
+　　　　　　　<h3>手順</h3>
+		<ul>
+			<li>babirlのソースをダウンロードしてくる。今回使用したのはbabirl130716</li>
+			<li>MacPortsでreadlineをインストール。（sudo port install readline）</li>
+			<li>common.mkに以下を追加する。</li>
+		</ul>
+		<pre><code>
+	CFLAGS += -I/opt/local/include
+	LDFLAGS += -L/opt/local/lib
+		</code></pre>
+		<ul>
+			<li>lib/bi-file.cの#include&lt;sys/statfs.h&gt;をコメントアウトし、&lt;sys/mount.h&gt;, 
+			&lt;sys/param.h&gt;をインクルードする。</li>
+			<li>lib/bi-file.c 80行目のfdatasync(fno)をfsync(fno)に置き換える。</li>
+			<li>lib/bbzfile.cも同様に#include&lt;sys/statfs.h&gt;をコメントアウトし、&lt;sys/mount.h&gt;をインクルードする。</li>
+			<li>include/bi-common.h 171行目でunion semun 
+			が定義されているので、この名前をsemunから変更する。</li>
+			<li>include/bi-common.h 184行目、babian/babian.c 31行目で semun が使われているのでこれも合わせて変更する。</li>
+			<li>babinfo/babinfo.c 699行目にMSG_NOSIGNALが使われているが、BSDでは使えないようなのでsetsockopt()関数を使ってNO_SIGを無視するように変更</li>
+		</ul>
+		before:
+		<pre><code>
+	if(send(tcpclinfo[i].sock, eabuff[eaflag], eahd[1], MSG_NOSIGNAL) &lt; 0){
+	   close(tcpclinfo[i].sock);
+	   tcpclinfo[i].sock = 0;
+	}	
+		</code></pre>
+		after:
+		<pre><code>
+	int set = 1;
+	setsockopt(tcpclinfo[i].sock, SOL_SOCKET, SO_NOSIGPIPE, (void*)&amp;set, sizeof(set));
+	if(send(tcpclinfo[i].sock, eabuff[eaflag], eahd[1], 0) &lt; 0){
+	   close(tcpclinfo[i].sock);
+	   tcpclinfo[i].sock = 0;
+	}		
+		</code></pre>
+		<ul>
+			<li>lib/bi-tcp.c 140行目、mktcpsend_tout()内の/*connect OK*/以下の部分をコメントアウトする。
+			（できればちゃんとしたエラー処理にした方が良いと思いますが・・・）</li>
+		</ul>
+		<pre><code>
+	/* connect OK*/
+//	ret = connect(sock, (struct sockaddr*)&amp;saddr, sizeof(saddr));
+//	DB(printf("ret3 = %d\n", ret));
+//	if(ret &lt; 0){
+//	   close(sock);
+//	   return 0;
+//	}
+		</code></pre>
+		<ul>
+			<li>devtool/Makefile のsexecuter, sexecuterts, serclient をとりあえずコメントアウト</li>
+			<li>lib, babian, babinfo, babild, babicon, ridfutil, devtool でそれぞれmake</li>
+		</ul>
+		以上でMac側に必要なものがコンパイルできたはず。これらを/usr/babirl/bin/へコピー。
+		<p class="style_center"><a href="../../memo.html">Memo</a>-<a href="../../DAQ.html">DAQ</a>-<a href="../DAQmemo4.html">Mac OS Xでデータを取る</a>へ戻る</p>
+		<!-- #EndEditable "content" -->
+	</div>
+	<!-- End Content -->
+	</article>
+	
+	<footer>
+	<!-- Begin Footer -->
+	<div id="footer">		
+		<p><a href="../../../index.html">Home</a> | 
+		<a href="../../../Profile/profile.html">Profile</a> 
+		| <a href="../../memo.html">Memo</a> | 
+		<a href="../../../Research/Research.html">Research</a> | 
+		<a href="../../../Osaka/Osaka.html">
+		Osaka</a> | <a href="../../../Downloads/downloads.html">Downloads</a> | 
+		<a href="../../../photo_gallery/Photo_gallery.html">Photo Gallery</a> |
+		<a href="../../../links/links.html">Links</a> | 
+		<a href="../../../contact/contact.html">Contact</a></p>
+		<p></p>
+	</div>
+	<!-- End Footer -->
+	</footer>
+	
+	</div>
+<!-- End Container -->
+
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  		ga('create', 'UA-46995449-1', 'rin-memo.appspot.com');
+  		ga('send', 'pageview');
+
+	</script>	
+</body>
+
+<!-- #EndTemplate -->
+
+</html>
