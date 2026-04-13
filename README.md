@@ -51,7 +51,7 @@ The static files are generated in the `out/` directory and are ready for GitHub 
 npm run build
 npm run export
 git checkout gh-pages
-Copy-Item -Path "..\out\*" -Destination "." -Recurse -Force
+Copy-Item -Path ".\out\*" -Destination ".\gh-pages-deploy" -Recurse -Force
 git add .
 git commit -m "comments"
 git push origin gh-pages
