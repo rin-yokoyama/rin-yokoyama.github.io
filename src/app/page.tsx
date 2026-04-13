@@ -39,7 +39,7 @@ export default function Home() {
                         <div className="bg-green-50 border border-green-200 rounded-lg p-4 max-h-64 overflow-y-auto dark:bg-green-900/20 dark:border-green-800">
                             <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                                 <li><time dateTime="2026-04-13">13/Apr/2026</time> - サイトリニューアルしました。</li>
-                                <li><time dateTime="2021-09-16">16/Sep/2021</time> - CNSで助教になりました。</li>
+                                <li><time dateTime="2025-12-01">1/Dec/2025</time> - CNSで助教になりました。</li>
                                 <li><time dateTime="2021-09-22">22/Sep/2021</time> - とりまgithub.ioに移設。</li>
                                 <li><time dateTime="2021-09-16">16/Sep/2021</time> - CNSで特任助教始めました。</li>
                                 <li><time dateTime="2019-04-19">19/Apr/2017</time> - profileを更新。アメリカでポスドク始めました。</li>

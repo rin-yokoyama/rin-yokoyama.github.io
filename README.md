@@ -47,9 +47,15 @@ npm run export
 
 The static files are generated in the `out/` directory and are ready for GitHub Pages deployment.
 
-1. The `out/` directory contains all the static files
-2. `.nojekyll` file prevents GitHub Pages from ignoring files starting with `_`
-3. Static assets (images, favicon) are copied to `out/`
+```PowerShell
+npm run build
+npm run export
+git checkout gh-pages
+Copy-Item -Path "..\out\*" -Destination "." -Recurse -Force
+git add .
+git commit -m "comments"
+git push origin gh-pages
+```
 
 ## Migration Notes
 
