@@ -13,29 +13,33 @@ export default function Home() {
                 <main className="space-y-8">
                     {/* Welcome Section */}
                     <section className="card">
-                        <h2 className="text-2xl font-bold text-primary-800 dark:text-primary-200 mb-4">About</h2>
+                        <h2 className="text-2xl font-bold text-primary-800 dark:text-primary-200 mb-4">Welcome!</h2>
+                        <p className="text-gray-600 dark:text-gray-300 mb-6">
+                            横山 輪の個人ページへようこそ！
+                        </p>
+                    </section>
+
+                    {/* About Section */}
+                    <section className="card">
+                        <h3 className="text-xl font-bold text-primary-800 dark:text-primary-200 mb-4">About</h3>
                         <p className="text-gray-600 dark:text-gray-300 mb-6">
                             横山 輪 (よこやま　りん)<br />
                             助教 東京大学大学院理学系研究科附属原子核科学研究センター<br />
                             専門：実験核物理学
                         </p>
+                        <Link href="/profile" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">
+                            View Full Profile →
+                        </Link>
                     </section>
 
-                    {/* Links Section */}
-                    <section className="card">
-                        <h3 className="text-xl font-bold text-primary-800 dark:text-primary-200 mb-4">Links</h3>
-                        <ul className="space-y-2">
-                            <li><Link href="https://github.com/rin-yokoyama" className="text-primary-600 hover:underline dark:text-primary-400 dark:hover:text-primary-300">GitHub</Link></li>
-                            <li><Link href="https://orcid.org/0000-0003-3298-3542" className="text-primary-600 hover:underline dark:text-primary-400 dark:hover:text-primary-300">ORCiD</Link></li>
-                            <li><Link href="https://zenn.dev/rin_yokoyama" className="text-primary-600 hover:underline dark:text-primary-400 dark:hover:text-primary-300">Zenn</Link></li>
-                        </ul>
-                    </section>
 
                     {/* Updates Section */}
                     <section className="card">
-                        <h3 className="text-xl font-bold text-primary-800 dark:text-primary-200 mb-4">更新情報</h3>
+                        <h3 className="text-xl font-bold text-primary-800 dark:text-primary-200 mb-4">News</h3>
                         <div className="bg-green-50 border border-green-200 rounded-lg p-4 max-h-64 overflow-y-auto dark:bg-green-900/20 dark:border-green-800">
                             <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                <li><time dateTime="2026-04-13">13/Apr/2026</time> - サイトリニューアルしました。</li>
+                                <li><time dateTime="2021-09-16">16/Sep/2021</time> - CNSで助教になりました。</li>
                                 <li><time dateTime="2021-09-22">22/Sep/2021</time> - とりまgithub.ioに移設。</li>
                                 <li><time dateTime="2021-09-16">16/Sep/2021</time> - CNSで特任助教始めました。</li>
                                 <li><time dateTime="2019-04-19">19/Apr/2017</time> - profileを更新。アメリカでポスドク始めました。</li>
@@ -58,12 +62,8 @@ export default function Home() {
                         <h3 className="text-xl font-bold text-primary-800 dark:text-primary-200 mb-4">Contents</h3>
                         <ul className="space-y-3">
                             <li><Link href="/profile" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Profile</Link>　自己紹介</li>
-                            <li><Link href="/memo" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Memo</Link>　備忘録です。メインコンテンツ</li>
-                            <li><Link href="/osaka" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Osaka</Link>　阪大のころのこと。主にオナー</li>
-                            <li><Link href="/research" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Research</Link>　研究紹介・業績リスト</li>
-                            <li><Link href="/photo-gallery" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Photo Gallery</Link>　個人的に撮った写真</li>
-                            <li><Link href="/downloads" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Downloads</Link>　作ったもの置き場</li>
-                            <li><Link href="/links" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Links</Link>　リンク集</li>
+                            <li><Link href="/memo" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Memo</Link>　かつての備忘録です。</li>
+                            <li><Link href="/research" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Research</Link>　研究紹介</li>
                             <li><Link href="/contact" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Contact</Link>　連絡先</li>
                             <li><Link href="/tools" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Tools</Link>　作ったwebツール</li>
                         </ul>
