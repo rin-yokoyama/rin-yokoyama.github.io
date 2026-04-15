@@ -19,7 +19,7 @@ export const classNames = {
   btnSecondary: 'inline-block bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium py-2 px-4 rounded-lg transition-colors',
 
   // Cards & containers
-  card: 'bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 dark:shadow-lg',
+  card: 'card mb-8',
 
   // Borders & dividers
   borderLeft: 'border-l-4 border-primary-500 dark:border-primary-400 pl-4',

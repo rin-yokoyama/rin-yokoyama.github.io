@@ -43,15 +43,15 @@ export default function Home() {
                                 <li><time dateTime="2021-09-22">22/Sep/2021</time> - とりまgithub.ioに移設。</li>
                                 <li><time dateTime="2021-09-16">16/Sep/2021</time> - CNSで特任助教始めました。</li>
                                 <li><time dateTime="2019-04-19">19/Apr/2017</time> - profileを更新。アメリカでポスドク始めました。</li>
-                                <li><time dateTime="2016-07-8">8/Jul/2016</time> - <Link href="/memo/daq" className="text-primary-600 hover:underline">Memo/DAQ</Link>にMOCOとGTOを追加</li>
-                                <li><time dateTime="2014-07-16">16/Jul/2014</time> - <Link href="/tools" className="text-primary-600 hover:underline">Tools</Link>（Weisskopf半減期の計算等）公開しました。</li>
+                                <li><time dateTime="2016-07-8">8/Jul/2016</time> - Memo/DAQにMOCOとGTOを追加</li>
+                                <li><time dateTime="2014-07-16">16/Jul/2014</time> - Tools（Weisskopf半減期の計算等）公開しました。</li>
                                 <li><time dateTime="2013-02-08">08/Feb/2013</time> - 修論（要cnsアカウント）</li>
-                                <li><time dateTime="2012-06-04">4/Jun/2012</time> - Geant4用γ線源クラス<Link href="/downloads/gsource" className="text-primary-600 hover:underline">GSource</Link>を追加。</li>
-                                <li><time dateTime="2012-04-27">27/Apr/2012</time> - <Link href="/memo/remote-ana" className="text-primary-600 hover:underline">Memo/リモート解析環境</Link>を追加。</li>
-                                <li><time dateTime="2011-12-26">26/Dec/2011</time> - ROOTマクロ：<Link href="/downloads/garoot" className="text-primary-600 hover:underline">GAROOT</Link>を公開。</li>
-                                <li><time dateTime="2011-11-24">24/Nov/2011</time> - <Link href="/memo/anapaw" className="text-primary-600 hover:underline">Memo/ANAPAW</Link>を追加。</li>
-                                <li><time dateTime="2011-11-23">23/Nov/2011</time> - <Link href="/memo/root" className="text-primary-600 hover:underline">Memo/ROOT</Link>を追加。</li>
-                                <li><time dateTime="2011-08-31">31/Aug/2011</time> - <Link href="/memo/windows/vsg4" className="text-primary-600 hover:underline">Memo/Windows/VC++でGEANT4</Link>を追加。</li>
+                                <li><time dateTime="2012-06-04">4/Jun/2012</time> - Geant4用γ線源クラスGSourceを追加。</li>
+                                <li><time dateTime="2012-04-27">27/Apr/2012</time> - Memo/リモート解析環境を追加。</li>
+                                <li><time dateTime="2011-12-26">26/Dec/2011</time> - ROOTマクロ：GAROOTを公開。</li>
+                                <li><time dateTime="2011-11-24">24/Nov/2011</time> - Memo/ANAPAWを追加。</li>
+                                <li><time dateTime="2011-11-23">23/Nov/2011</time> - Memo/ROOTを追加。</li>
+                                <li><time dateTime="2011-08-31">31/Aug/2011</time> - Memo/Windows/VC++でGEANT4を追加。</li>
                                 <li><time dateTime="2011-06-11">11/Jun/2011</time> - サイトオープン！</li>
                             </ul>
                         </div>
@@ -62,6 +62,7 @@ export default function Home() {
                         <h3 className="text-xl font-bold text-primary-800 dark:text-primary-200 mb-4">Contents</h3>
                         <ul className="space-y-3">
                             <li><Link href="/profile" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Profile</Link>　自己紹介</li>
+                            <li><Link href="/publications" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Publications</Link>　業績リスト</li>
                             <li><Link href="/memo" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Memo</Link>　かつての備忘録です。</li>
                             <li><Link href="/research" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Research</Link>　研究紹介</li>
                             <li><Link href="/contact" className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium">Contact</Link>　連絡先</li>
