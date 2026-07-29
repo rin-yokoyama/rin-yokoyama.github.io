@@ -44,7 +44,7 @@ export default function Profile() {
                             <li>2025年12月～現在:助教<br />東京大学大学院理学系研究科附属原子核科学研究センター</li>
                         </ul>
                         <h3 className={classNames.heading3}>CV</h3>
-                        <Link href="https://drive.google.com/file/d/1EXmEfxoa3ata9CF-6ZC-sioW0nox1jBp/view?usp=sharing" className={classNames.textLink}>
+                        <Link href="https://drive.google.com/file/d/1-av6_PxeAOrTl50YgFHyENlUT1lCs-X0/view?usp=sharing" className={classNames.textLink}>
                             Full CV (PDF)
                         </Link>
                     </div>
