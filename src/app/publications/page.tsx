@@ -11,11 +11,11 @@ export default function Publications() {
                     <h2 className={classNames.heading2}>Publications</h2>
                     <p className={classNames.textDefault + ' mb-6'}>
                         主な業績です。詳細はCVまたはORCiDを参照。<br />
-                        <Link href="https://drive.google.com/file/d/1EXmEfxoa3ata9CF-6ZC-sioW0nox1jBp/view?usp=sharing" className={classNames.textLink}>
+                        <Link href="https://drive.google.com/file/d/1-av6_PxeAOrTl50YgFHyENlUT1lCs-X0/view?usp=sharing" className={classNames.textLink}>
                             Full CV (PDF)
                         </Link><br />
-                        <Link href="https://orcid.org/0000-0002-1234-5678" className={classNames.textLink} target="_blank" rel="noopener noreferrer">
-                            ORCiD: 0000-0002-1234-5678
+                        <Link href="https://orcid.org/0000-0003-3298-3542" className={classNames.textLink} target="_blank" rel="noopener noreferrer">
+                            ORCiD: 0000-0003-3298-3542
                         </Link>
                     </p>
 
@@ -27,6 +27,12 @@ export default function Publications() {
                         <section>
                             <h3 className={classNames.heading3}>Journal Papers</h3>
                             <div className="space-y-4">
+                                <div className={classNames.borderLeft}>
+                                    <h4 className={classNames.heading4}>Segmented 139La-GPS scintillator as an active stopper for β-decay studies at fragmentation facilities</h4>
+                                    <p className={classNames.textDefault}>Authors: Y. Anuar, R. Yokoyama et al.</p>
+                                    <p className={classNames.textDefault}>Nucl. Instrum. Methods Phys. Res. A, 171700 (2026)</p>
+                                    <p className={classNames.textDefault}>DOI: <a href="https://doi.org/10.1016/j.nima.2026.171700" className={classNames.textLink}>10.1016/j.nima.2026.171700</a></p>
+                                </div>
                                 <div className={classNames.borderLeft}>
                                     <h4 className={classNames.heading4}>YSO implantation detector for beta-delayed neutron spectroscopy</h4>
                                     <p className={classNames.textDefault}>Authors: M. Singh, R. Yokoyama et al.</p>
